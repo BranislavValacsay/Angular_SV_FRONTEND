@@ -1,0 +1,35 @@
+<mat-toolbar>
+<div class="center flex-container">
+  <a class="text-dark" routerLinkActive='active' routerLink='/dashboard'>Dashboard</a>
+  <a class="text-dark" routerLinkActive='active' routerLink='/serverlist'>Server List</a>
+  <a class="text-dark" routerLinkActive='active' routerLink='/new_request_server'>New server</a>
+  <a class="text-dark" routerLinkActive='active' routerLink='/logs'>Logs</a>
+  <a class="text-dark" routerLinkActive='active' routerLink='/networks'>Networks</a>
+</div>
+
+  
+<div style="position:absolute; right: 20px;">
+  
+  <a *ngIf="isAdmin == true" routerLinkActive='active' routerLink='/settings'>
+    <button mat-icon-button aria-label="settings icon">
+      <mat-icon class="text-dark">settings</mat-icon>
+    </button>
+  </a>
+  
+  <a routerLinkActive='active' routerLink='/logs'>
+    <button mat-icon-button aria-label="logs icon" class="hamburger-icon">
+      <mat-icon class="text-dark">assignment</mat-icon>
+    </button>
+  </a>
+
+  <button mat-icon-button class="hamburger-icon" aria-label="Example icon-button with share icon">
+    <mat-icon class="text-dark">person</mat-icon>
+  </button>
+
+  <button mat-icon-button class="hamburger-icon" aria-label="Example icon-button with share icon"
+  (click)="logout()">
+    <mat-icon class="text-dark">power_settings_new</mat-icon>
+  </button>
+</div>
+
+</mat-toolbar>

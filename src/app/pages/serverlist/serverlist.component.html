@@ -1,0 +1,83 @@
+<div>
+    <div class="headtext">Server list</div>
+    <div class="head bggray centerh">
+        <p>
+            <input class="inpSearch text-dark" type="text" placeholder="search server name, requester"
+            [(ngModel)]="params.key" (keyup)="loadData_Servers()"
+            >
+        </p>
+    </div>
+    <div style="height: 80px;" class="centerh">
+        <div class="flex-container">
+            <button class="dashbutton text-dark">2022</button>
+            <button class="dashbutton text-dark">2019</button>
+            <button class="dashbutton text-dark">DATACENTER1</button>
+            <button class="dashbutton text-dark">DATACENTER2</button>
+            <button class="dashbutton text-dark">domain0</button>
+            <button class="dashbutton text-dark">domain1</button>
+            <button class="dashbutton text-dark">domain2</button>
+            <button class="dashbutton text-dark">domain3</button>
+            <button class="dashbutton text-dark">domain4</button>
+            <button class="dashbutton text-dark">Infra</button>
+            <button class="dashbutton text-dark">SQL</button>
+            <button class="dashbutton text-dark">complete</button>
+            <button class="dashbutton text-dark">incomplete</button>
+        </div>
+    </div>
+
+    <div>
+        <table>
+            <tr *ngFor="let serverRequest of serverRequestList" (click)="click(serverRequest.guid)" style="padding: 200px;">
+                <td>
+                    <div>
+                        <tr><b>CPU:</b></tr>
+                        <tr><b>Memory:</b></tr>
+                    </div>
+
+                </td>
+                <td>
+                    <div>
+                    <tr>{{serverRequest.cpu}}</tr>
+                    <tr>{{serverRequest.memory}}</tr>
+                    </div>
+
+                </td>
+                <td>
+                    <tr><b>Name:</b></tr>
+                    <tr><b>Domain:</b></tr>
+                </td>
+                <td>
+                    <tr>{{serverRequest.serverName}}</tr>
+                    <tr>{{serverRequest.domain}}</tr>
+                </td>
+                <td>
+                    <button>Windows Server {{serverRequest.windowsVersion.version}}</button>
+                    <button>{{serverRequest.vmmServer.location}}</button>
+                    <button>{{serverRequest.requester}}</button>
+                </td>
+                <td>
+                    <tr><b>Blimp:</b></tr>
+                </td>
+                <td>
+                    <tr>{{serverRequest.blimpName}}.{{serverRequest.blimpEnv}}</tr>
+                </td>
+                <td>
+                    <tr><b>Network:</b></tr>
+                    <tr><b>vlanID:</b></tr>
+                    <tr><b>IP address:</b></tr>
+                </td>
+                <td>
+                    <tr>{{serverRequest.networkDTO.name}}</tr>
+                    <tr>{{serverRequest.networkDTO.vlanID}}</tr>
+                    <tr>{{serverRequest.ipAddress}}</tr>
+                </td>
+                <td *ngIf="serverRequest.manualOverride == false">
+                    <b>{{serverRequest.status}}%</b>
+                </td>
+                <td *ngIf="serverRequest.manualOverride != false">
+                    <b>{{serverRequest.status}}% - Overridden</b>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

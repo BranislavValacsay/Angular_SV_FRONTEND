@@ -1,0 +1,21 @@
+<div>
+  <app-nav *ngIf="user !== undefined"></app-nav>
+
+  <app-home *ngIf="isLoggedIn"></app-home>
+  <app-login *ngIf="!isLoggedIn"></app-login>
+</div>
+
+<div *ngIf="isLoading" class="center"
+style="
+background-color: #00000077;
+color: white;
+font-size: larger;
+font-weight: bolder;
+position:fixed;
+padding:30px;
+border:none;
+border-radius: 25px;
+z-index: 9999;
+">
+  WORKING...
+</div>

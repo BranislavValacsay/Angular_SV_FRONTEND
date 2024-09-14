@@ -1,0 +1,44 @@
+<div class="headtext">Networks</div>
+
+<div class="head bggray centerh">
+    <p>
+        <input class="inpSearch text-dark" type="text" placeholder="search in network parameters"
+        [(ngModel)]="params.key" (keyup)="loadNetworkData()"/>
+        
+    </p>
+</div>
+<div>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Logical network</th>
+            <th>vlanID</th>
+            <th>Subnet/cidr</th>
+            <th>gateway</th>
+            <th>is active</th>
+        </tr>
+
+
+        <tr *ngFor="let network of networkdataList" (click)="copyToClipBoard(network)">
+            <td>
+                {{network.name}}
+
+            </td>
+            <td>
+                {{network.logicalNetworkDefinition}}
+            </td>
+            <td>
+                {{network.vlanID}}
+            </td>
+            <td>
+                {{network.subnet}}/{{network.cidr}}
+            </td>
+            <td>
+                {{network.gateway}}
+            </td>
+            <td>
+                {{network.isActive}}
+            </td>
+        </tr>
+    </table>
+</div>

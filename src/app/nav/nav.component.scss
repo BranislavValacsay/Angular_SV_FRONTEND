@@ -1,0 +1,38 @@
+.mat-toolbar, .nav {
+  background-color: #d7dedc; /* #201E1F;*/
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000; /*  */
+}
+
+.sidenav {
+  padding: 20px;
+}
+
+.input-container {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-top {
+  width: 512px;
+  height: 25px;
+  border:none;
+  border-radius: 3px;
+  margin:auto;
+}
+
+.color-white {
+  color:#EDEDEDDD;
+}
+.color-dim-white{
+  color:#EDEDEDAA;
+}
+.link-container {
+  display: flex;
+  align-items: center;
+  color: white;
+}

@@ -1,0 +1,55 @@
+.glass {
+    background: rgba( 255, 255, 255, 0.15 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 8.5px );
+    -webkit-backdrop-filter: blur( 8.5px );
+    border-radius: 10px;
+    border: 2px solid rgba( 255, 255, 255, 0.18 );
+}
+
+.bg {
+    width: 100vw;
+    height: 100vh;
+    background-size: 100% 100%;
+    background-position: 0px 0px,0px 0px,0px 0px,0px 0px,0px 0px;
+    background-image: repeating-linear-gradient(315deg, #00FFFF2E 92%, #073AFF00 100%)
+    , repeating-radial-gradient(75% 75% at 238% 218%, #00FFFF12 30%
+    , #073AFF14 39%)
+    ,radial-gradient(99% 99% at 109% 2%, #00C9FFFF 0%, #073AFF00 100%)
+    ,radial-gradient(99% 99% at 21% 78%, #7B00FFFF 0%, #073AFF00 100%)
+    ,radial-gradient(160% 154% at 711px -303px, #2000FFFF 0%, #073AFFFF 100%);
+  }
+.bg2 { 
+    background: linear-gradient(180deg, #000346 0%, #FF0000 100%), linear-gradient(58.72deg, #0029FF 0%, #AA0014 100%), radial-gradient(100% 164.72% at 100% 100%, #FF00A8 0%, #00FF47 100%), radial-gradient(100% 148.07% at 0% 0%, #FFF500 0%, #51D500 100%);
+background-blend-mode: overlay, overlay, difference, normal;
+}
+.bg_login{
+    width: 500px;
+    height: 400px;
+}
+
+.inp , .logbtn {
+    width: 400px ;
+    height: 50px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 25px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 18px;
+    font-size: large;
+    font-weight: bold;
+    color:#1e1e1e;
+}
+
+.inp {
+    padding-left: 30px;
+}
+
+.logbtn {
+    width: 100% !important;
+}
+
+.inp:placeholder-shown{
+    font-size: small;
+    text-align: left;
+    padding-left: 30px;
+}

@@ -1,0 +1,29 @@
+<div class="bg" style="width: 100vw; height: 100vh;">
+
+    <div class="bg_login center glass">
+        <div class="mt-30">
+            <h2 class="text-light font-bold" style="text-align: center;">Log in</h2>   
+        </div>
+     
+        <div class="center mt-30">
+            <form #loginForm="ngForm" autocomplete="off">
+    
+                <input type="text" class="inp" name="username" placeholder="username" [(ngModel)]="user.username">
+                <br>
+    
+                <input type="password" class="inp" name="password" placeholder="password" [(ngModel)]="user.password">
+                <br><br>
+            </form>
+            <button type="button" class="logbtn" (click)="login()">Log in</button>
+
+            <div class="text-center mt-10">
+                <p class="text-light">Forgot password ? 
+                    <span class="font-bold">
+                        <a href="https://leon.it.internal/">Click here</a>
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+

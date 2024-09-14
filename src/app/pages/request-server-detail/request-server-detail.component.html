@@ -1,0 +1,370 @@
+<div class="headtext">Request detail</div>
+<div class="head bggray centerh">
+    <p *ngIf="requestProperties !== undefined" class="headtext">{{requestProperties.serverName}}</p>
+</div>
+<mat-tab-group dynamicHeight [selectedIndex]="selectedTab.value" (selectedIndexChange)="saveLastTab($event)">
+  <mat-tab label="Request summary">
+    <div class="centerh">
+      <ng-container *ngIf="requestProperties">
+        <form [formGroup]="userForm" class="formRequestServer">
+  
+              <mat-form-field class="full-width">
+                <mat-label>vServer Operating System</mat-label>
+                  <mat-select formControlName="windowsVersionId">
+                  <mat-option *ngFor="let os of osList$ | async "[value]="os.id">{{ os.name }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+  
+              <mat-form-field class="full-width">
+                <mat-label>vServer CPU size</mat-label>
+                <mat-select formControlName="cpu">
+                  <mat-option [value]=4>Small - 4 virtual processors</mat-option>
+                  <mat-option [value]=8>Medium - 8 virtual processors</mat-option>
+                  <mat-option [value]=12>Large - 12 virtual processors</mat-option>
+                  <mat-option [value]=16>Extra large - 16 virtual processors</mat-option>
+                  <mat-option [value]=20>Extra large - 20 virtual processors</mat-option>
+                  <mat-option [value]=24>Extra large - 24 virtual processors</mat-option>
+                  <mat-option [value]=32>Extra large - 32 virtual processors</mat-option>
+                  <mat-option [value]=40>Extra large - 40 virtual processors</mat-option>
+                  <mat-option [value]=48>Extra large - 48 virtual processors</mat-option>
+                </mat-select>
+              </mat-form-field>
+  
+  
+              <mat-form-field class="full-width">
+                <mat-label>vServer RAM size</mat-label>
+                <mat-select formControlName="memory">
+                  <mat-option [value]="4">Small - 4 GB RAM</mat-option>
+                  <mat-option [value]="8">Medium - 8 GB RAM</mat-option>
+                  <mat-option [value]="12">Large - 12 GB RAM</mat-option>
+                  <mat-option [value]="16">Extra large - 16 GB RAM</mat-option>
+                  <mat-option [value]="32">Extra large - 32 GB RAM</mat-option>
+                  <mat-option [value]="48">Extra large - 48 GB RAM</mat-option>
+                  <mat-option [value]="64">Extra large - 64 GB RAM</mat-option>
+                  <mat-option [value]="128">Extra large - 128 GB RAM</mat-option>
+                </mat-select>
+              </mat-form-field>
+  
+              <mat-form-field class="full-width">
+                <mat-label>Description</mat-label>
+                <input
+                  matInput
+                  placeholder="Describe your server"
+                  formControlName = "description"
+                />
+              </mat-form-field>
+  
+              <mat-form-field class="full-width">
+                <mat-label>Disk D:</mat-label>
+                <input
+                  matInput
+                  placeholder="enter size in GB"
+                  formControlName = "disk_D"
+                />
+              </mat-form-field>
+        
+              <mat-form-field class="full-width">
+                <mat-label>Disk E:</mat-label>
+                <input
+                  matInput
+                  placeholder="enter size in GB"
+                  formControlName = "disk_E"
+                />
+              </mat-form-field>
+  
+              <mat-form-field class="full-width">
+                <mat-label>Active Directory Domain</mat-label>
+                <mat-select formControlName="domain">
+                  <mat-option *ngFor="let domain of domains "[value]="domain.name">{{ domain.name }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+  
+         
+                <mat-form-field class="full-width">
+                  <mat-label>Network</mat-label>
+                  <input 
+                    type="text"
+                    placeholder="Pick one"
+                    aria-label="Number"
+                    matInput
+                    [matAutocomplete]="auto"
+                    [formControl]="networkId"
+                    [formControl]="nwControl" 
+  
+                    (focus) = "filter()"
+                    (input) = "filter()"
+                    
+                  /><!--                                           -->
+                  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                    <mat-option *ngFor="let network of networkdataList" [value]="network.name">
+                      {{network.vlanID}}  -  {{network.name}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+  
+              <mat-form-field class="full-width">
+                <mat-label>Subnet (ReadOnly)</mat-label>
+                <input
+                  matInput
+                  placeholder="Network subnet"
+                  value="{{requestProperties.networkDTO.subnet}}/{{requestProperties.networkDTO.cidr}}"
+                  [readonly]="true"
+                />
+              </mat-form-field>
+  
+              <mat-form-field class="full-width">
+                <mat-label>Choose a location</mat-label>
+                <mat-select
+                formControlName="VMMServerId"
+                >
+                  <mat-option [value]=1>DATACENTER1</mat-option>
+                  <mat-option [value]=2>DATACENTER2</mat-option>
+                </mat-select>
+              </mat-form-field>
+  
+              <mat-form-field class="full-width">
+                <mat-label>vServer Name</mat-label>
+                <input
+                  matInput
+                  placeholder="Describe your server"
+                  formControlName="serverName"
+                />
+                <button mat-raised-button color="primary" (click)="requestServerName()">
+                  Get vServer name
+                </button>
+              </mat-form-field>
+  
+              <mat-form-field class="full-width">
+                <mat-label>IP address</mat-label>
+                <input
+                  matInput
+                  placeholder="Enter IP address or request one"
+                  formControlName="ipAddress"
+                />
+                <button mat-raised-button color="primary" (click)="getFirstFreeIpAddress()">
+                  Get an IP address
+                </button>
+                <hr>
+                <button mat-raised-button color="primary" (click)="SetIPAddressStatus('Used')">
+                  Reserve IP address
+                </button>
+                <br><hr>
+                <button mat-raised-button color="primary" (click)="SetIPAddressStatus('Available')">
+                  Release IP address
+                </button>
+              </mat-form-field>
+  
+              <mat-form-field class="full-width">
+                <mat-label>Description</mat-label>
+                <input
+                  matInput
+                  placeholder="Describe your server"
+                  formControlName = "description"
+                />
+              </mat-form-field>
+  
+              <mat-form-field class="full-width">
+                <mat-label>Requester</mat-label>
+                <input
+                  matInput
+                  placeholder="who had this server requested ?"
+                  value="Developer_User"
+                  formControlName="requester"
+                  [readonly]="false"
+                />
+              </mat-form-field>
+     
+              <mat-form-field class="full-width">
+                <mat-label>Guid (ReadOnly)</mat-label>
+                <input
+                  matInput
+                  placeholder="guid"
+                  formControlName="guid"
+                  [readonly]="true"
+                />
+              </mat-form-field>
+    
+              <mat-form-field class="full-width">
+                <mat-label>Blimp Name</mat-label>
+                <input
+                  matInput
+                  placeholder="name of blimp"
+                  formControlName="blimpName"
+                />
+              </mat-form-field>
+    
+              <mat-form-field class="full-width">
+                <mat-label>Blimp ID</mat-label>
+                <input
+                  matInput
+                  placeholder="blimp number ID"
+                  formControlName="blimpId"
+                />
+              </mat-form-field>
+
+              <mat-form-field class="full-width">
+                <mat-label>Blimp Environment</mat-label>
+                <mat-select formControlName="blimpEnv">
+                  <mat-option value="test">test</mat-option>
+                  <mat-option value="office">office</mat-option>
+                  <mat-option value="production">production</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <br>
+        
+              <mat-form-field class="full-width">
+                <mat-label>Leon request guid</mat-label>
+                <input
+                  matInput
+                  placeholder="Leon request guid"
+                  formControlName="leonRequestId"
+                />
+              </mat-form-field>
+          
+            <mat-slide-toggle
+            formControlName="isSQLServer"
+            >
+            This MS-SQL server
+            </mat-slide-toggle>
+  
+            <mat-slide-toggle
+            formControlName="isInfraServer"
+            >This INFRA server
+            </mat-slide-toggle>
+            <br><br>
+  
+            <p style="padding-top: 25px">
+              <button
+                type="submit"
+                mat-raised-button
+                color="primary"
+                (click)="saveChanges(userForm)"
+              >
+                Save changes
+              </button>
+  
+              <button mat-stroked-button color="warn" (click)="back()">
+                Back
+              </button>
+            </p>
+    
+        </form>
+  
+        <div (click)="copyToClipBoard(newServerForm.value)">
+  
+        </div>
+  
+        <button mat-raised-button color="warn" (click)="deleteRequest()">
+          Delete request !
+        </button>
+      </ng-container>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="{{servername$ | async}} server creation summary">
+
+    <div *ngIf="requestProperties" style="margin-left: 75px;">
+
+      <div>
+        <button class="cyber-button-small bg-black fg-white" (click)="ApproveRequest(requestProperties.guid)">
+          Approve
+        </button>
+      </div>
+
+      <div>
+        <button class="cyber-button-small bg-black fg-white" (click)="ManualOverride(requestProperties.guid)">
+          Manual Override
+        </button>
+      </div>
+
+      <div>
+        <button class="cyber-button-small bg-black fg-white" (click)="createVserver(requestProperties.guid)">
+          Create VM
+        </button>
+      </div>
+
+      <div>
+        <button class="cyber-button-small bg-black fg-white" (click)="createDSC(requestProperties.guid)">
+          Create DSC
+        </button>
+      </div>
+
+      <div>
+        <button class="cyber-button-small bg-black fg-white" (click)="injectDSC(requestProperties.guid)">
+          Inject DSC
+        </button>
+      </div>
+
+      <div>
+        <button class="cyber-button-small bg-black fg-white" (click)="renameSystemDisk(requestProperties.guid)">
+          Rename sysDisk
+        </button>
+      </div>
+      
+      <div>
+        <button class="cyber-button-small bg-black fg-white" (click)="startVserver(requestProperties.guid)">
+          Start vServer
+        </button>
+      </div>
+
+      <div>
+        <button class="cyber-button-small bg-black fg-white" (click)="stopVserver(requestProperties.guid)">
+          Stop vServer
+        </button>
+      </div>
+
+      <div>
+        <button class="cyber-button-small bg-black fg-white" (click)="markAsComplete(requestProperties.guid)">
+          Mark as 'Done'
+        </button>
+      </div>
+
+      <div>
+        <button class="cyber-button-small bg-black fg-white" (click)="emailMessageToClipboard()">
+          IT.INTERNAL text
+        </button>
+      </div>
+
+
+<!--
+      <div><button class="btn" (click)="ApproveRequest(requestProperties.guid)" mat-raised-button color="primary">Approve</button></div><br>
+      <div><button class="btn" (click)="createVserver(requestProperties.guid)" mat-raised-button color="primary">create vServer</button></div><br>
+      <div><button class="btn" [disabled]="true" mat-raised-button color="primary">Server Status</button></div><br>
+      <div><button class="btn" (click)="createDSC(requestProperties.guid)" mat-raised-button color="primary">create DSC</button></div><br>
+      <div><button class="btn" (click)="injectDSC(requestProperties.guid)" mat-raised-button color="primary">inject DSC</button></div><br>
+      <div><button class="btn" (click)="renameSystemDisk(requestProperties.guid)" mat-raised-button color="primary">rename system disk</button></div><br>
+      <div><button class="btn" (click)="startVserver(requestProperties.guid)" mat-raised-button color="primary">start vServer</button></div><br>
+      <div><button class="btn" (click)="stopVserver(requestProperties.guid)" mat-raised-button color="primary">stop vServer</button></div><br>
+      <div><button class="btn" (click)="markAsComplete(requestProperties.guid)" mat-raised-button color="primary">Mark as 'Done'</button></div><br>
+      <div><button class="btn" (click)="emailMessageToClipboard()" mat-raised-button color="primary">IT.INTERNAL ticket text</button></div><br>
+      <div><button class="btn" disabled="true" mat-raised-button color="primary">Get OU</button></div><br>
+      <div><button class="btn" disabled="true" (click)="pass()" mat-raised-button color="primary">send to LeonDB</button></div><br>
+-->
+
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Logs & Events - rework for real time">
+    <table class="cyber-table">
+      <tr>
+        <th>Time</th>
+        <th>Message Type</th>
+        <th>Message body</th>
+        <th>Job Guid</th>
+        <th>Command</th>
+        <th>Result</th>
+
+      </tr>
+      <tr *ngFor="let item of logData$ | async">
+        <td>{{item.timeStamp | date:'d.MM.yyyy HH:mm:ss'}}</td>
+        <td>{{item.messageType}}</td>
+        <td>{{item.messageBody}}</td>
+        <td>{{item.guid}}</td>
+        <td>{{item.command}}</td>
+        <td>{{item.result}}</td>
+      </tr>
+    </table>
+
+  </mat-tab>
+
+</mat-tab-group>

@@ -1,0 +1,278 @@
+<div class="headtext">New server</div>
+
+<div class="head bggray centerh">
+</div>
+
+<div class="centerh">
+  <form>
+    <mat-stepper orientation="vertical" [linear]=false #stepper style="width: 768px;">
+  
+      <mat-step>
+        <ng-template matStepLabel>Pick an Operating System</ng-template>
+  
+        <mat-form-field class="input">
+          <mat-label>vServer Operating System</mat-label>
+          <mat-select [(ngModel)]="newRequest.windowsversionid" name="windowsversionid">
+            <mat-option *ngFor="let os of osList$ | async "[value]="os.id">{{ os.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </mat-step>
+  
+      <mat-step>
+        <ng-template matStepLabel>vServer CPU configuration</ng-template>
+  
+        <mat-form-field class="input">
+          <mat-label>vServer CPU size</mat-label>
+          <mat-select [(ngModel)]="newRequest.cpu" name="cpu">
+            <mat-option [value]=4>Small - 4 virtual processors</mat-option>
+            <mat-option [value]=8>Medium - 8 virtual processors</mat-option>
+            <mat-option [value]=12>Large - 12 virtual processors</mat-option>
+            <mat-option [value]=16>Extra large - 16 virtual processors</mat-option>
+            <mat-option [value]=20>Extra large - 20 virtual processors</mat-option>
+            <mat-option [value]=24>Extra large - 24 virtual processors</mat-option>
+            <mat-option [value]=32>Extra large - 32 virtual processors</mat-option>
+            <mat-option [value]=40>Extra large - 40 virtual processors</mat-option>
+            <mat-option [value]=48>Extra large - 48 virtual processors</mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+        
+  
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </mat-step>
+  
+      <mat-step>
+        <ng-template matStepLabel>vServer memory size</ng-template>
+        <mat-form-field class="input">
+          <mat-label>vServer RAM size</mat-label>
+          <mat-select [(ngModel)]=newRequest.memory name="memory">
+            <mat-option [value]=4>Small - 4 GB RAM</mat-option>
+            <mat-option [value]=8>Medium - 8 GB RAM</mat-option>
+            <mat-option [value]=12>Large - 12 GB RAM</mat-option>
+            <mat-option [value]=16>Extra large - 16 GB RAM</mat-option> 
+            <mat-option [value]=24>Extra large - 24 GB RAM</mat-option> 
+            <mat-option [value]=32>Extra large - 32 GB RAM</mat-option>
+            <mat-option [value]=48>Extra large - 48 GB RAM</mat-option>
+            <mat-option [value]=64>Extra large - 64 GB RAM</mat-option>
+            <mat-option [value]=128>Extra large - 128 GB RAM</mat-option>  
+          </mat-select>
+        </mat-form-field>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </mat-step>
+  
+      <mat-step>
+        <ng-template matStepLabel>Disk for applications</ng-template>
+        <mat-form-field class="input">
+          <mat-label>Disk D:</mat-label>
+          <input
+            matInput
+            placeholder="enter size in GB"
+            [(ngModel)]="newRequest.disk_D"
+            name="Disk_D"
+          />
+        </mat-form-field>
+  
+        <mat-form-field class="input">
+          <mat-label>Disk E:</mat-label>
+          <input
+            matInput
+            placeholder="enter size in GB"
+            [(ngModel)]="newRequest.disk_E"
+            name="Disk_E"
+          />
+        </mat-form-field>
+  
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </mat-step>
+      
+      <mat-step>
+        <ng-template matStepLabel>Domain for your server</ng-template>
+        <mat-form-field class="input">
+          <mat-label>Select domain for your server</mat-label>
+          <mat-select [(ngModel)]="newRequest.domain" name="domain">
+            <mat-option *ngFor="let domain of domains "[value]="domain.name">{{ domain.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </mat-step>
+  
+      <mat-step>
+        <ng-template matStepLabel>Network configuration</ng-template>
+        <mat-form-field class="input">
+          <mat-label>Network</mat-label>
+          <input #input
+            type="text"
+            placeholder="Pick one"
+            aria-label="Number"
+            matInput
+            [matAutocomplete]="auto"
+            [(ngModel)]="newRequest.networkId"
+            name="networkId"
+            [formControl]="myControl"
+            (input) = "filter()"
+            (focus) = "filter()"
+          />
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            <mat-option *ngFor="let network of networkdataList" [value]="network.name">
+              {{network.vlanID}}  -  {{network.name}}
+            </mat-option>
+  
+          </mat-autocomplete>
+        </mat-form-field>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </mat-step>
+  
+      <mat-step>
+        <ng-template matStepLabel>Location</ng-template>
+        <mat-form-field class="input">
+          <mat-label>Choose a location</mat-label>
+          <mat-select [(ngModel)]="newRequest.VMMServerId" name="VMMServerId">
+            <mat-option [value]=1>DATACENTER1</mat-option>
+            <mat-option [value]=2>DATACENTER</mat-option>
+          </mat-select>
+        </mat-form-field>
+    
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </mat-step>
+  
+      <mat-step>
+        <ng-template matStepLabel>Description</ng-template>
+        <mat-form-field class="input">
+          <mat-label>Description</mat-label>
+          <input
+            matInput
+            placeholder="Describe your server"
+            [(ngModel)]="newRequest.description"
+            name="description"
+          />
+        </mat-form-field>
+  
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </mat-step>
+  
+      <mat-step>
+        <ng-template matStepLabel>Requester information</ng-template>
+  
+        <mat-form-field class="input">
+          <mat-label>Requester</mat-label>
+          <input
+            matInput
+            placeholder="who requested this server ?"
+            [(ngModel)]="newRequest.requester"
+            name="requester"
+          />
+  
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </mat-form-field>
+  
+      </mat-step>
+  
+      <mat-step>
+        <ng-template matStepLabel>MS-SQL/INFRA usage</ng-template>
+        <br>
+        <mat-slide-toggle [(ngModel)]="newRequest.isSQLServer" name="isSQLServer"
+        >This MS-SQL server</mat-slide-toggle>
+        <br><br>
+        <mat-slide-toggle [(ngModel)]="newRequest.isInfraServer" name="isInfraServer"
+        >This INFRA server</mat-slide-toggle>
+        <br><br>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+  
+      </mat-step>
+  
+      <mat-step>
+        <ng-template matStepLabel>Blimp information</ng-template>
+        <div style="padding-bottom: 10px;"></div>
+        <mat-form-field class="input">
+          <mat-label>Blimp Name</mat-label>
+          <input
+            matInput
+            placeholder="name of blimp"
+            [(ngModel)]="newRequest.blimpName"
+            name="blimpName"
+          />
+        </mat-form-field>
+  
+        <mat-form-field class="input">
+          <mat-label>Blimp ID</mat-label>
+          <input
+            matInput
+            placeholder="blimp number ID"
+            [(ngModel)]="newRequest.blimpId"
+            name="blimpId"
+          />
+        </mat-form-field>
+  
+        <mat-form-field class="input">
+          <mat-label>Blimp Environment</mat-label>
+          <mat-select [(ngModel)]="newRequest.blimpEnv" name="newRequest.blimpEnv">
+            <mat-option value="test">test</mat-option>
+            <mat-option value="office">office</mat-option>
+            <mat-option value="production">production</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br>
+
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </mat-step>
+  
+      <mat-step>
+        <ng-template matStepLabel>Leon request guid</ng-template>
+  
+        <mat-form-field class="input">
+          <mat-label>Custom request guid</mat-label>
+          <input
+            matInput
+            placeholder="Request guid"
+            [(ngModel)]="newRequest.guid"
+            name="guid"
+          />
+        </mat-form-field>
+  
+        <mat-form-field class="input">
+          <mat-label>Leon request guid</mat-label>
+          <input
+            matInput
+            placeholder="Leon request guid"
+            [(ngModel)]="newRequest.leonRequestId"
+            name="leonRequestId"
+          />
+        </mat-form-field>
+        <button mat-button matStepperPrevious>Back</button>
+      </mat-step>
+  
+  
+    </mat-stepper>
+  
+  <p style="padding-top: 25px">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="createRequestServer()"
+    >
+      Submit request
+    </button>
+    <button
+    mat-stroked-button
+    color="warn"
+    (click)="back()"
+  >
+    Back
+  </button>
+  <button mat-button (click)="stepper.reset()">Reset</button>
+  </p>
+  </form>
+</div>

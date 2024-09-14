@@ -1,0 +1,76 @@
+.inpSearch
+{
+  width: 600px;
+  border-radius: 0px;
+  border: none !important;
+  background-color: transparent;
+  border-bottom: #5e5e5e solid 1px !important;
+  min-height: 50px;
+  font-family: Oswald-Regular;
+  font-size: 25px;
+  color:#5e5e5e !important;
+  transition-duration: .3s;
+  font-family: BlenderProBook !important;
+  text-align: center;
+}
+
+.inpSearch::placeholder{
+  color:#999999!important;
+  transition-duration: .3s;
+}
+
+.inpContact:hover
+{
+  border-bottom: #5e5e5e  solid 1px !important;
+}
+.inpContact:focus
+{
+  border-radius: 0px;
+  border: none !important;
+  background: transparent;
+  backdrop-filter: blur( 4px );
+  -webkit-backdrop-filter: blur( 4px );
+  border-bottom: #000 solid 1px !important;
+  min-height: 50px;
+  font-family: Oswald-Regular;
+  font-size: 25px;
+  outline: none !important;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  transition-duration: 1s !important; 
+}
+inpContact > textarea:focus, input:focus{
+  outline: none;
+}
+
+.inpContact:hover::placeholder{
+  color:grey !important;
+}
+
+.inpContact:focus::placeholder{
+  border:none;
+  color:#5e5e5e  !important;
+}
+
+:placeholder-shown { 
+  text-align: center;
+  font-family: BlenderProBook !important;
+}
+
+tr:hover {
+  background-color: #d7dedc;
+}
+
+table {  
+  border-collapse: collapse;  
+  width: 100%;
+  text-align: left;
+}
+
+td > button{
+  border:none;
+  margin:5px;
+  padding:10px;
+  border-radius: 25px;
+  background-color: #d7dedc;
+}

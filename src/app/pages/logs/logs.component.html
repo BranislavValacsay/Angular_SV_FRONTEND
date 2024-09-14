@@ -1,0 +1,24 @@
+<div class="headtext">Log records</div>
+<div class="head bggray centerh">
+</div>
+
+<table>
+    <tr>
+      <th>Time</th>
+      <th>Message Type</th>
+      <th>Message body</th>
+      <th>Job Guid</th>
+      <th>Command</th>
+      <th>Result</th>
+
+    </tr>
+    <tr *ngFor="let item of logData" (click)="navigateGuid(item.guid)">
+      <td>{{item.timeStamp | date:'d.MM.yyyy HH:mm:ss'}}</td>
+      <td>{{item.messageType}}</td>
+      <td>{{item.messageBody}}</td>
+      <td>{{item.guid}}</td>
+      <td>{{item.command}}</td>
+      <td>{{item.result}}</td>
+
+    </tr>
+</table>
